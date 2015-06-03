@@ -3,7 +3,7 @@ require File.expand_path('../teststrap', __FILE__)
 context 'Rabl::Configuration' do
   context 'defaults' do
     # multi_json compatibility TODO
-    helper(:json_engine) { ::Oj }
+    helper(:json_engine) { ::JSON }
     setup { Rabl.configuration }
 
     asserts(:include_json_root).equals true
@@ -19,15 +19,17 @@ context 'Rabl::Configuration' do
     asserts(:exclude_empty_values_in_collections).equals false
   end
 
-  context 'custom JSON engine configured as Symbol' do
-    setup do
-      Rabl.configure do |c|
-        c.json_engine = :oj
+  unless RUBY_PLATFORM == 'java'
+    context 'custom JSON engine configured as Symbol' do
+      setup do
+        Rabl.configure do |c|
+          c.json_engine = :oj
+        end
       end
-    end
 
-    asserts('uses a custom JSON engine') { topic.json_engine.to_s =~ /oj/i }
-  end # custom json, symbol
+      asserts('uses a custom JSON engine') { topic.json_engine.to_s =~ /oj/i }
+    end # custom json, symbol
+  end
 
   context 'custom JSON engine configured as Class' do
     setup do

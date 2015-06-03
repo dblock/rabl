@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  
+
   if RUBY_VERSION < "1.9"
     s.add_dependency 'activesupport', '>= 2.3.14', '<= 4'
   else
@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rr',       '~> 1.0.2'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'tilt'
-  s.add_development_dependency 'oj'
-  s.add_development_dependency 'msgpack',  '~> 0.4.5'
+  s.add_development_dependency 'oj' unless RUBY_PLATFORM == 'java'
+  s.add_development_dependency 'msgpack'
   s.add_development_dependency 'bson',     '~> 1.7.0'
   s.add_development_dependency 'plist'
 end

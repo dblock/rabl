@@ -17,9 +17,16 @@ group :test do
   # FIXTURES
   gem 'rack-test', :require => 'rack/test'
   gem 'activerecord', :require => 'active_record'
-  gem 'sqlite3'
   gem 'sinatra', '>= 1.2.0'
   gem 'hashie'
+
+  platforms :ruby do
+    gem 'sqlite3'
+  end
+
+  platforms :jruby do
+    gem 'activerecord-jdbcsqlite3-adapter'
+  end
 end
 
 group :development, :test do
